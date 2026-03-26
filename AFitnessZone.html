@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Fitness Zone</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d0f;--bg2:#141416;--bg3:#1a1a1e;--bg4:#222228;
+  --bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);
+  --t:#f0efe8;--t2:#8a8a90;--t3:#555560;
+  --gr:#22c97a;--gd:rgba(34,201,122,0.12);
+  --am:#f5a623;--ad:rgba(245,166,35,0.12);
+  --re:#ff5c5c;--rd:rgba(255,92,92,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;font-size:14px}
+
+.hdr{padding:16px 24px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);position:sticky;top:0;z-index:20}
+.logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+.lic{width:28px;height:28px;background:var(--gr);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.logo em{color:var(--gr);font-style:normal}
+.hr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.btn{padding:8px 15px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.bp{background:var(--gr);color:#000}.bp:hover{opacity:.85}
+.bg{background:var(--bg3);border:1px solid var(--bd);color:var(--t2)}.bg:hover{border-color:var(--bd2);color:var(--t)}
+.bdel{background:transparent;border:1px solid rgba(255,92,92,.3);color:var(--re);padding:5px 9px;font-size:12px}.bdel:hover{background:var(--rd)}
+.bedt{background:transparent;border:1px solid var(--bd);color:var(--t2);padding:5px 9px;font-size:12px}.bedt:hover{border-color:var(--bd2);color:var(--t)}
+.bwa{background:#1DAA61;color:#fff;padding:6px 11px;font-size:12px;display:inline-flex;align-items:center;gap:5px;text-decoration:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .15s}.bwa:hover{opacity:.85}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border-bottom:1px solid var(--bd)}
+.sc{background:var(--bg2);padding:16px 20px;cursor:pointer;transition:background .15s;border-bottom:2px solid transparent}.sc:hover{background:var(--bg3)}.sc.af{background:var(--bg3);border-bottom-color:var(--gr)}
+.sl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;font-family:'Syne',sans-serif}
+.sv{font-family:'Syne',sans-serif;font-size:26px;font-weight:700}.sv.g{color:var(--gr)}.sv.a{color:var(--am)}.sv.r{color:var(--re)}
+
+.rp{margin:16px 20px;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.rh{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.rt{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+.rc{background:var(--re);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px}
+.ri{padding:10px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}.ri:last-child{border-bottom:none}
+.rin{font-weight:500;font-size:13px}
+.ris{font-size:11px;margin-top:2px}.ris.u{color:var(--re)}.ris.s{color:var(--am)}
+.re0{padding:16px;color:var(--t3);font-size:13px;text-align:center}
+
+.tb{padding:12px 20px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--bd);background:var(--bg2);flex-wrap:wrap}
+.sw{flex:1;min-width:180px;position:relative}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px;pointer-events:none}
+input[type=search]{width:100%;background:var(--bg3);border:1px solid var(--bd);color:var(--t);padding:8px 12px 8px 33px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border-color .15s}
+input[type=search]:focus{border-color:var(--bd2)}
+input::placeholder{color:var(--t3)}
+select{background:var(--bg3);border:1px solid var(--bd);color:var(--t);padding:8px 12px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;cursor:pointer}
+.dw{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:4px 10px}
+.dw span{font-size:11px;color:var(--t3);white-space:nowrap}
+input[type=date]{background:transparent;border:none;color:var(--t);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;padding:4px 0;width:130px;color-scheme:dark}
+.cb{background:none;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:0 2px;display:none}.cb:hover{color:var(--t2)}
+
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{padding:11px 16px;text-align:left;font-size:11px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--bd);background:var(--bg2);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--bd);transition:background .1s}
+tbody tr:hover{background:var(--bg3)}
+td{padding:12px 16px;vertical-align:middle}
+.mn{font-weight:500;color:var(--t)}
+.mp{color:var(--t2);font-size:13px}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;font-family:'Syne',sans-serif;white-space:nowrap}
+.ba{background:var(--gd);color:var(--gr);border:1px solid rgba(34,201,122,.2)}
+.bw2{background:var(--ad);color:var(--am);border:1px solid rgba(245,166,35,.2)}
+.bx{background:var(--rd);color:var(--re);border:1px solid rgba(255,92,92,.2)}
+.dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.ac{display:flex;gap:5px;align-items:center}
+
+.es{padding:50px 20px;text-align:center;color:var(--t3)}
+.est{font-family:'Syne',sans-serif;font-size:15px;color:var(--t2);margin-bottom:6px}
+
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;align-items:center;justify-content:center;padding:16px}
+.ov.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bd2);border-radius:14px;width:min(480px,100%);max-height:90vh;overflow-y:auto}
+.modal.wide{width:min(620px,100%)}
+.mh{padding:18px 22px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.mt{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.mc{background:var(--bg4);border:1px solid var(--bd);color:var(--t2);width:27px;height:27px;border-radius:6px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}.mc:hover{color:var(--t)}
+.mb{padding:18px 22px}
+.mf{padding:14px 22px;border-top:1px solid var(--bd);display:flex;gap:8px;justify-content:flex-end}
+.mf.sb{justify-content:space-between}
+.fr{margin-bottom:14px}
+.fl{display:block;font-size:11px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
+.fi{width:100%;background:var(--bg3);border:1px solid var(--bd);color:var(--t);padding:9px 13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .15s}
+.fi:focus{border-color:var(--gr)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+textarea.fi{resize:vertical;line-height:1.65}
+.hint{background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:var(--t2);line-height:1.8}
+.hl{font-family:'Syne',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);margin-bottom:7px}
+.pw{margin-top:10px;max-height:160px;overflow-y:auto}
+@media(max-width:580px){.stats{grid-template-columns:1fr 1fr}.fr2{grid-template-columns:1fr}.sv{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo"><div class="lic">💪</div>A <em>Fitness Zone</em></div>
+  <div class="hr">
+    <button class="btn bg" onclick="openBulk()">📋 Bulk Add</button>
+    <button class="btn bg" onclick="openImp()">📥 Import</button>
+    <button class="btn bg" onclick="exportData()">📤 Export</button>
+    <button class="btn bp" onclick="openAdd()">+ New Member</button>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="sc" id="sc-all" onclick="filterBy('all')"><div class="sl">Total Members</div><div class="sv" id="st">0</div></div>
+  <div class="sc" id="sc-active" onclick="filterBy('active')"><div class="sl">Active</div><div class="sv g" id="sa">0</div></div>
+  <div class="sc" id="sc-expiring" onclick="filterBy('expiring')"><div class="sl">Expiring (7 days)</div><div class="sv a" id="se">0</div></div>
+  <div class="sc" id="sc-expired" onclick="filterBy('expired')"><div class="sl">Expired</div><div class="sv r" id="sx">0</div></div>
+</div>
+
+<div class="rp">
+  <div class="rh">
+    <div class="rt">🔔 Today's Reminders <span class="rc" id="rcnt">0</span></div>
+    <button class="btn bg" style="padding:4px 10px;font-size:12px" onclick="toggleRem()" id="rToggle">Hide</button>
+  </div>
+  <div id="rlist"></div>
+</div>
+
+<div class="tb">
+  <div class="sw"><span class="si">🔍</span><input type="search" id="srch" placeholder="Search by name or number..." oninput="renderTable()"></div>
+  <select id="planF" onchange="renderTable()">
+    <option value="">All Plans</option>
+    <option>1 Mahina</option><option>3 Mahine</option>
+    <option>6 Mahine</option><option>1 Saal</option>
+  </select>
+  <div class="dw">
+    <span>📅 Expiry:</span>
+    <input type="date" id="dateF" onchange="onDateCh()">
+    <button class="cb" id="clrBtn" onclick="clrDate()">✕</button>
+  </div>
+</div>
+
+<div class="tw">
+  <table>
+    <thead><tr>
+      <th>Member</th><th>Phone</th><th>Plan</th>
+      <th>Join Date</th><th>Expiry</th><th>Status</th>
+      <th>WhatsApp</th><th>Actions</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div id="empty" class="es" style="display:none">
+    <div class="est" id="et">Koi member nahi mila</div>
+    <p id="es2" style="font-size:13px;margin-top:4px"></p>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="ov" id="addOv">
+  <div class="modal">
+    <div class="mh"><div class="mt" id="addTtl">Add New Member</div><button class="mc" onclick="closeAdd()">✕</button></div>
+    <div class="mb">
+      <div class="fr"><label class="fl">Name *</label><input class="fi" id="fn" placeholder="John Smith"></div>
+      <div class="fr2">
+        <div><label class="fl">WhatsApp Number *</label><input class="fi" id="fp" placeholder="9876543210" type="tel"></div>
+        <div><label class="fl">Amount (₹)</label><input class="fi" id="fa" placeholder="1000" type="number"></div>
+      </div>
+      <div class="fr2">
+        <div><label class="fl">Plan *</label>
+          <select class="fi" id="fpl">
+            <option>1 Mahina</option><option>3 Mahine</option>
+            <option>6 Mahine</option><option>1 Saal</option>
+          </select>
+        </div>
+        <div><label class="fl">Join / Renewal Date *</label><input class="fi" id="fj" type="date" style="color-scheme:dark"></div>
+      </div>
+      <div class="fr"><label class="fl">Notes</label><input class="fi" id="fno" placeholder="Any note..."></div>
+    </div>
+    <div class="mf">
+      <button class="btn bg" onclick="closeAdd()">Cancel</button>
+      <button class="btn bp" onclick="saveMember()">Save ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- BULK MODAL -->
+<div class="ov" id="bulkOv">
+  <div class="modal wide">
+    <div class="mh"><div class="mt">📋 Bulk Add Members</div><button class="mc" onclick="closeBulk()">✕</button></div>
+    <div class="mb">
+      <div class="hint">
+        <div class="hl">One member per line — format:</div>
+        <code style="color:var(--gr)">Name, Phone, Plan, Date (YYYY-MM-DD), Amount</code>
+        <div style="margin-top:8px;color:var(--t3)">Example:</div>
+        <code style="color:var(--am)">John Smith, 9800000000, 1 Mahina, 2025-02-01, 800</code><br>
+        <code style="color:var(--am)">Sara Khan, 9811111111, 3 Mahine, 2025-01-15, 2000</code>
+        <div style="margin-top:8px;color:var(--t3)">Plan shortcut: <span style="color:var(--t2)">1m | 3m | 6m | 1s</span></div>
+      </div>
+      <div class="fr"><label class="fl">Paste All Members Data Here</label>
+        <textarea class="fi" id="btext" rows="9" placeholder="John Smith, 9800000000, 1 Mahina, 2025-02-01, 800&#10;Sara Khan, 9811111111, 3 Mahine, 2025-01-15, 2000"></textarea>
+      </div>
+      <div class="pw" id="bprev"></div>
+    </div>
+    <div class="mf sb">
+      <button class="btn bg" onclick="previewBulk()">👁 Preview</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn bg" onclick="closeBulk()">Cancel</button>
+        <button class="btn bp" onclick="saveBulk()">✓ Save All</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="ov" id="impOv">
+  <div class="modal">
+    <div class="mh"><div class="mt">📥 Import Backup</div><button class="mc" onclick="closeImp()">✕</button></div>
+    <div class="mb">
+      <p style="color:var(--t2);font-size:13px;line-height:1.6;margin-bottom:14px">Select a previously exported JSON backup file.</p>
+      <div class="fr"><label class="fl">JSON Backup File</label><input class="fi" type="file" id="impFile" accept=".json" style="padding:8px"></div>
+      <div id="impMsg" style="font-size:13px;margin-top:6px;display:none"></div>
+    </div>
+    <div class="mf">
+      <button class="btn bg" onclick="closeImp()">Cancel</button>
+      <button class="btn bp" onclick="doImport()">Import</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLANS={'1 Mahina':30,'3 Mahine':90,'6 Mahine':180,'1 Saal':365};
+const PA={
+  '1 mahina':'1 Mahina','1mahina':'1 Mahina','1m':'1 Mahina','1month':'1 Mahina','1 month':'1 Mahina','one month':'1 Mahina',
+  '3 mahine':'3 Mahine','3mahine':'3 Mahine','3m':'3 Mahine','3month':'3 Mahine','3 month':'3 Mahine','3 months':'3 Mahine','3months':'3 Mahine',
+  '6 mahine':'6 Mahine','6mahine':'6 Mahine','6m':'6 Mahine','6month':'6 Mahine','6 month':'6 Mahine','6 months':'6 Mahine','6months':'6 Mahine',
+  '1 saal':'1 Saal','1saal':'1 Saal','1s':'1 Saal','1year':'1 Saal','1 year':'1 Saal','12m':'1 Saal','12month':'1 Saal','12 months':'1 Saal'
+};
+const WA=`<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.113.551 4.1 1.516 5.836L0 24l6.335-1.495A11.926 11.926 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.804 9.804 0 01-5.032-1.383l-.36-.214-3.733.881.938-3.649-.235-.374A9.818 9.818 0 012.182 12C2.182 6.579 6.579 2.182 12 2.182S21.818 6.579 21.818 12 17.421 21.818 12 21.818z"/></svg>`;
+
+let members=[],editIdx=null,curF='all',remOpen=true;
+
+function load(){
+  try{members=JSON.parse(localStorage.getItem('gymtrack_v2')||'[]');}catch(e){members=[];}
+  // No demo data - system starts empty
+}
+function sv(){localStorage.setItem('gymtrack_v2',JSON.stringify(members));}
+
+function exp(m){const d=new Date(m.join);d.setDate(d.getDate()+PLANS[m.plan]);return d;}
+function dl(m){const n=new Date();n.setHours(0,0,0,0);return Math.ceil((exp(m)-n)/86400000);}
+function st(m){const d=dl(m);return d<0?'expired':d<=7?'expiring':'active';}
+function waL(m){
+  const s=st(m),d=dl(m),e=exp(m).toLocaleDateString('en-IN');
+  let msg;
+  if(s==='expired')msg=`Hello ${m.name}! 🏋️\n\nYour gym membership has expired.\nRenew today and keep your fitness journey going! 💪\n\n— A Fitness Zone`;
+  else if(s==='expiring')msg=`Hello ${m.name}! 🏋️\n\nYour gym membership expires in just *${d} days* (${e}).\nRenew now to keep training without a break! 💪\n\n— A Fitness Zone`;
+  else msg=`Hello ${m.name}! 🏋️\nYour membership is valid until ${e}. Keep it up! 💪\n\n— A Fitness Zone`;
+  return `https://wa.me/91${m.phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`;
+}
+
+function renderStats(){
+  const t=members.length,a=members.filter(m=>st(m)==='active').length,
+        e=members.filter(m=>st(m)==='expiring').length,x=members.filter(m=>st(m)==='expired').length;
+  document.getElementById('st').textContent=t;
+  document.getElementById('sa').textContent=a;
+  document.getElementById('se').textContent=e;
+  document.getElementById('sx').textContent=x;
+  ['all','active','expiring','expired'].forEach(f=>{
+    document.getElementById('sc-'+f).classList.toggle('af',curF===f);
+  });
+}
+
+function renderRem(){
+  const urg=members.filter(m=>st(m)!=='active').sort((a,b)=>dl(a)-dl(b));
+  document.getElementById('rcnt').textContent=urg.length;
+  const el=document.getElementById('rlist');
+  if(!urg.length){el.innerHTML='<div class="re0">🎉 All members are active!</div>';return;}
+  el.innerHTML=urg.map(m=>{
+    const s=st(m),d=dl(m);
+    const cls=s==='expired'?'u':'s';
+    const sub=s==='expired'?`Expired ${Math.abs(d)} days ago`:`Expires in ${d} days`;
+    return`<div class="ri"><div><div class="rin">${m.name}</div><div class="ris ${cls}">${sub} · ${m.phone}</div></div><a href="${waL(m)}" target="_blank" class="bwa">${WA} Remind</a></div>`;
+  }).join('');
+}
+
+function renderTable(){
+  const q=document.getElementById('srch').value.toLowerCase();
+  const pf=document.getElementById('planF').value;
+  const df=document.getElementById('dateF').value;
+  const list=members.filter(m=>{
+    if(!m.name.toLowerCase().includes(q)&&!m.phone.includes(q))return false;
+    if(pf&&m.plan!==pf)return false;
+    if(curF!=='all'&&st(m)!==curF)return false;
+    if(df&&exp(m).toISOString().split('T')[0]!==df)return false;
+    return true;
+  });
+  const tbody=document.getElementById('tbody'),empty=document.getElementById('empty');
+  if(!list.length){
+    tbody.innerHTML='';empty.style.display='block';
+    if(df){document.getElementById('et').textContent='No expiry on this date';document.getElementById('es2').textContent='No member plan expires on '+new Date(df).toLocaleDateString('en-IN');}
+    else{document.getElementById('et').textContent='No members found';document.getElementById('es2').textContent='Clear search or filters and try again';}
+    return;
+  }
+  empty.style.display='none';
+  tbody.innerHTML=list.map(m=>{
+    const idx=members.indexOf(m),s=st(m),d=dl(m);
+    const e=exp(m).toLocaleDateString('en-IN'),j=new Date(m.join).toLocaleDateString('en-IN');
+    const bc=s==='active'?'ba':s==='expiring'?'bw2':'bx';
+    const bt=s==='active'?`${d} days left`:s==='expiring'?`${d} days left`:`${Math.abs(d)} days ago`;
+    return`<tr><td><div class="mn">${m.name}</div>${m.notes?`<div style="font-size:11px;color:var(--t3);margin-top:2px">${m.notes}</div>`:''}</td><td class="mp">${m.phone}</td><td style="color:var(--t2)">${m.plan}</td><td style="color:var(--t2)">${j}</td><td style="color:var(--t2)">${e}</td><td><span class="badge ${bc}"><span class="dot"></span>${bt}</span></td><td><a href="${waL(m)}" target="_blank" class="bwa">${WA} Send</a></td><td><div class="ac"><button class="btn bedt" onclick="openEdit(${idx})">Edit</button><button class="btn bdel" onclick="delM(${idx})">Del</button></div></td></tr>`;
+  }).join('');
+}
+
+function renderAll(){renderStats();renderRem();renderTable();}
+function filterBy(f){curF=f;renderAll();}
+function toggleRem(){
+  remOpen=!remOpen;
+  document.getElementById('rlist').style.display=remOpen?'block':'none';
+  document.getElementById('rToggle').textContent=remOpen?'Hide':'Show';
+}
+
+function onDateCh(){document.getElementById('clrBtn').style.display=document.getElementById('dateF').value?'block':'none';renderTable();}
+function clrDate(){document.getElementById('dateF').value='';document.getElementById('clrBtn').style.display='none';renderTable();}
+
+function openAdd(){
+  editIdx=null;
+  document.getElementById('addTtl').textContent='Add New Member';
+  document.getElementById('fn').value='';
+  document.getElementById('fp').value='';
+  document.getElementById('fa').value='';
+  document.getElementById('fpl').value='1 Mahina';
+  document.getElementById('fj').value=new Date().toISOString().split('T')[0];
+  document.getElementById('fno').value='';
+  document.getElementById('addOv').classList.add('open');
+  setTimeout(()=>document.getElementById('fn').focus(),80);
+}
+function openEdit(idx){
+  editIdx=idx;const m=members[idx];
+  document.getElementById('addTtl').textContent='Edit Member';
+  document.getElementById('fn').value=m.name;
+  document.getElementById('fp').value=m.phone;
+  document.getElementById('fa').value=m.amount||'';
+  document.getElementById('fpl').value=m.plan;
+  document.getElementById('fj').value=m.join;
+  document.getElementById('fno').value=m.notes||'';
+  document.getElementById('addOv').classList.add('open');
+}
+function closeAdd(){document.getElementById('addOv').classList.remove('open');}
+
+function saveMember(){
+  const name=document.getElementById('fn').value.trim();
+  const phone=document.getElementById('fp').value.trim().replace(/\D/g,'');
+  const plan=document.getElementById('fpl').value;
+  const join=document.getElementById('fj').value;
+  const amount=Number(document.getElementById('fa').value)||0;
+  const notes=document.getElementById('fno').value.trim();
+  if(!name){alert('Name is required!');return;}
+  if(phone.length!==10){alert('Phone number must be 10 digits!');return;}
+  if(!join){alert('Join date is required!');return;}
+  const m={name,phone,plan,join,amount,notes};
+  if(editIdx!==null)members[editIdx]=m;
+  else members.push(m);
+  sv();closeAdd();renderAll();
+}
+
+function delM(idx){
+  if(confirm(`Delete "${members[idx].name}"? This cannot be undone.`)){
+    members.splice(idx,1);sv();renderAll();
+  }
+}
+
+function openBulk(){document.getElementById('btext').value='';document.getElementById('bprev').innerHTML='';document.getElementById('bulkOv').classList.add('open');}
+function closeBulk(){document.getElementById('bulkOv').classList.remove('open');}
+
+function parseLine(line){
+  const p=line.split(',').map(s=>s.trim());
+  if(p.length<4)return null;
+  const name=p[0];
+  const phone=p[1].replace(/\D/g,'');
+  const planRaw=p[2].toLowerCase().trim();
+  const plan=PA[planRaw]||Object.keys(PLANS).find(k=>k.toLowerCase()===planRaw)||p[2].trim();
+  let join=p[3].trim();
+  // Fix date: accept YYYY-M-D and pad to YYYY-MM-DD
+  const dateParts=join.split('-');
+  if(dateParts.length===3){
+    join=`${dateParts[0]}-${dateParts[1].padStart(2,'0')}-${dateParts[2].padStart(2,'0')}`;
+  }
+  const amount=p[4]?Number(p[4].replace(/\D/g,'')):0;
+  if(!name)return null;
+  if(phone.length!==10)return null;
+  if(!PLANS[plan])return null;
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(join))return null;
+  return{name,phone,plan,join,amount,notes:''};
+}
+function getLineError(line){
+  const p=line.split(',').map(s=>s.trim());
+  if(p.length<4)return'Need at least 4 values: Name, Phone, Plan, Date';
+  const phone=p[1].replace(/\D/g,'');
+  if(phone.length!==10)return`Phone must be 10 digits (got ${phone.length})`;
+  const planRaw=p[2].toLowerCase().trim();
+  const plan=PA[planRaw]||Object.keys(PLANS).find(k=>k.toLowerCase()===planRaw)||p[2].trim();
+  if(!PLANS[plan])return`Plan "${p[2]}" not valid. Use: 1 Mahina, 3 Mahine, 6 Mahine, 1 Saal`;
+  let join=p[3].trim();
+  const dateParts=join.split('-');
+  if(dateParts.length===3)join=`${dateParts[0]}-${dateParts[1].padStart(2,'0')}-${dateParts[2].padStart(2,'0')}`;
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(join))return`Date "${p[3]}" not valid. Use format: 2025-01-31`;
+  return null;
+}
+function previewBulk(){
+  const lines=document.getElementById('btext').value.split('\n').filter(l=>l.trim());
+  const pv=document.getElementById('bprev');
+  if(!lines.length){pv.innerHTML='';return;}
+  let ok=0,fail=0,html='';
+  lines.forEach((l,i)=>{
+    const m=parseLine(l);
+    if(m){ok++;html+=`<div style="padding:4px 10px;margin-bottom:2px;background:var(--gd);border-radius:5px;font-size:12px;color:var(--gr)">✓ ${m.name} · ${m.phone} · ${m.plan} · ${m.join}</div>`;}
+    else{fail++;const err=getLineError(l);html+=`<div style="padding:4px 10px;margin-bottom:2px;background:var(--rd);border-radius:5px;font-size:12px;color:var(--re)">✗ Line ${i+1}: ${err||l.substring(0,45)}</div>`;}
+  });
+  pv.innerHTML=`<div style="font-size:12px;margin-bottom:6px;color:var(--t2)">${ok} correct · <span style="color:var(--re)">${fail} error</span></div>`+html;
+}
+function saveBulk(){
+  const lines=document.getElementById('btext').value.split('\n').filter(l=>l.trim());
+  if(!lines.length){alert('Nothing entered!');return;}
+  const good=[],bad=[];
+  lines.forEach((l,i)=>{const m=parseLine(l);m?good.push(m):bad.push(i+1);});
+  if(!good.length){alert('No lines are in the correct format.\nTry Preview first.');return;}
+  if(bad.length&&!confirm(`${good.length} members will be added, ${bad.length} lines will be skipped (line: ${bad.join(', ')})\nContinue?`))return;
+  members.push(...good);sv();closeBulk();renderAll();
+  alert(`✓ ${good.length} members added successfully!`);
+}
+
+function exportData(){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(members,null,2)],{type:'application/json'}));
+  a.download=`gymtrack_backup_${new Date().toISOString().split('T')[0]}.json`;a.click();
+}
+function openImp(){document.getElementById('impMsg').style.display='none';document.getElementById('impFile').value='';document.getElementById('impOv').classList.add('open');}
+function closeImp(){document.getElementById('impOv').classList.remove('open');}
+function doImport(){
+  const file=document.getElementById('impFile').files[0];
+  if(!file){alert('Please select a file!');return;}
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(!Array.isArray(d))throw 0;
+      members=d;sv();renderAll();
+      const msg=document.getElementById('impMsg');
+      msg.style.display='block';msg.style.color='var(--gr)';
+      msg.textContent=`✓ ${d.length} members imported successfully!`;
+      setTimeout(closeImp,1400);
+    }catch{
+      const msg=document.getElementById('impMsg');
+      msg.style.display='block';msg.style.color='var(--re)';
+      msg.textContent='Invalid file. Only GymTrack export files are supported.';
+    }
+  };
+  r.readAsText(file);
+}
+
+['addOv','bulkOv','impOv'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+});
+
+load();renderAll();
+</script>
+</body>
+</html>
